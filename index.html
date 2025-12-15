@@ -16,7 +16,7 @@
         
         /* Nav */
         nav { background: #222; padding: 1rem; text-align: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        nav a { color: #fff; text-decoration: none; margin: 0 15px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        nav a { color: #fff; text-decoration: none; margin: 0 10px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
         nav a:hover { color: var(--dps-green); }
 
         /* Header */
@@ -41,7 +41,7 @@
         .member-name { font-weight: bold; font-size: 1.1rem; color: #222; }
         .member-role { color: #777; font-size: 0.9rem; text-transform: uppercase; margin-top: 5px; }
         
-        /* Special Style for Seniors to differentiate */
+        /* Special Style for Seniors */
         .senior-card { border-top: 4px solid #555; }
 
         /* 3. INDIVIDUAL ACHIEVEMENTS GRID */
@@ -65,6 +65,34 @@
         .award-list { font-size: 0.85rem; color: #555; padding-left: 20px; max-height: 150px; overflow-y: auto; margin-top: 10px; border-top: 1px solid #eee; padding-top:10px; }
         .award-list li { margin-bottom: 4px; }
 
+        /* 5. PHOTO GALLERY GRID (NEW) */
+        .photos-wrapper { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; }
+        .photo-item { position: relative; overflow: hidden; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); cursor: pointer; height: 250px; }
+        .photo-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+        .photo-item:hover img { transform: scale(1.1); }
+        .photo-caption { 
+            position: absolute; bottom: 0; left: 0; right: 0; 
+            background: rgba(0,0,0,0.7); color: #fff; 
+            padding: 10px; transform: translateY(100%); transition: transform 0.3s; 
+            font-size: 0.85rem; text-align: center;
+        }
+        .photo-item:hover .photo-caption { transform: translateY(0); }
+
+        /* 6. ARCHIVES / RESOURCES GRID (NEW) */
+        .archives-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .archive-card { 
+            background: #fff; border: 1px solid #ddd; padding: 25px; border-radius: 8px; 
+            text-align: center; transition: 0.3s; 
+        }
+        .archive-card:hover { border-color: var(--dps-green); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .archive-year { font-weight: bold; color: var(--dps-green); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        .archive-title { font-size: 1.1rem; margin: 10px 0 20px 0; font-weight: bold; color: #333; }
+        .archive-link { 
+            display: inline-block; text-decoration: none; color: #fff; background: #333; 
+            padding: 8px 25px; border-radius: 20px; font-size: 0.8rem; transition: 0.3s; 
+        }
+        .archive-link:hover { background: var(--dps-green); }
+
         footer { text-align: center; padding: 40px; background: #222; color: #777; margin-top: 50px; }
     </style>
 </head>
@@ -73,9 +101,10 @@
     <nav>
         <a href="#news">Updates</a>
         <a href="#members">Secretariat</a>
-        <a href="#seniors">Seniors</a> <a href="#individual">Hall of Fame</a> 
-        <a href="#events">School Delegation</a>
-    </nav>
+        <a href="#seniors">Seniors</a> 
+        <a href="#individual">Hall of Fame</a> 
+        <a href="#events">Delegation</a>
+        <a href="#photos">Gallery</a> <a href="#archives">Archives</a> </nav>
 
     <header>
         <img src="MUN_Logo.jpeg" alt="DPS Logo" class="logo-placeholder">
@@ -110,6 +139,16 @@
         <div class="gallery-grid" id="events-root"></div>
     </section>
 
+    <section id="photos" style="background: #222; color: #fff;">
+        <div class="center-wrap"><h2 class="section-title" style="color: #fff; border-bottom-color: #555;">Club Gallery</h2></div>
+        <div class="photos-wrapper" id="photos-root"></div>
+    </section>
+
+    <section id="archives" style="background: #fff;">
+        <div class="center-wrap"><h2 class="section-title">Previous Editions & Resources</h2></div>
+        <div class="archives-grid" id="archives-root"></div>
+    </section>
+
     <footer>
         &copy; 2025 DPS Noida MUN Club.
     </footer>
@@ -139,13 +178,14 @@
             { name: "Avni Khandelwal", role: "Junior Core" },
             { name: "Saanvi Jaiswal", role: "Junior Core" },
             { name: "Paavika Singh", role: "Junior Core" },
-            { name: "Shloke Kalra", role: "Junior Core" }
+            { name: "Shloke Kalra", role: "Junior Core" },
+            { name: "Sargun Jindal", role: "Junior Core" },
+            { name: "Harshit Bhasin", role: "Junior Core" }
         ];
 
         // ==========================================
-        // 3. SENIORS DATABASE (NEW!)
+        // 3. SENIORS DATABASE
         // ==========================================
-        // Add your seniors here
         const seniorsDatabase = [
             { name: "Divij Sharma", role: "Prezident MUN Club, C/O 2025" },
             { name: "Krisha Sharma", role: "Secretary MUN Club, C/O 2025" },
@@ -174,101 +214,23 @@
         // 4. INDIVIDUAL AWARDS DATABASE
         // ==========================================
         const individualAwardsDatabase = [
-            {
-                name: "Mahie Tripathi & Gautam Narang",
-                award: "Best Delegate",
-                committee: "Continous Crisis Committee",
-                conference: "DPS Dwarka 2025"
-            },
-            {
-                name: "Paavika Singh",
-                award: "Best Delegate",
-                committee: "UNSC",
-                conference: "SFSIMUN 2025"
-            },
-            {
-                name: "Saanvi Jaiswal",
-                award: "Best Delegate",
-                committee: "AIPPM",
-                conference: "Mayoor MUN 2025"
-            },
-            {
-                name: "Avni Khandelwal",
-                award: "High Commendation",
-                committee: "UNODC",
-                conference: "India MUN 2024"
-            },
-            {
-                name: "Paavika Singh",
-                award: "Best Delegate",
-                committee: "UNCOPUOS",
-                conference: "Falcon MUN 2024"
-            },
-            {
-                name: "Amogh Singh Manral & Aarav Gupta",
-                award: "Special Mention",
-                committee: "UNGA",
-                conference: "DPSI MUN 2024"
-            },
-            {
-                name: "Divij Sharma",
-                award: "Best Delegate",
-                committee: "NATO",
-                conference: "Columban MUN 2024"
-            },
-            {
-                name: "Nimrah Ali",
-                award: "Best Delegate",
-                committee: "NATO",
-                conference: "Manav Rachna International MUN 2023"
-            },
-            {
-                name: "Angela Arora",
-                award: "Best Delegate",
-                committee: "GCM",
-                conference: "Columban MUN 2023"
-            },
-            {
-                name: "Aaditya Pande",
-                award: "High Commmendation",
-                committee: "UNCSW",
-                conference: "Columban MUN 2023"
-            },
-            {   name: "Atharv Prasad",
-                award: "Best Delegate",
-                committee: "UNGA",
-                conference: "Mayoor MUN 2025"
-            },
-            {   name: "Mrigank Bhargava",
-                award: "Best Delegate",
-                committee: "USA",
-                conference: "Mayoor MUN 2025"
-            },
-            {   name: "Mahie Tripathi",
-                award: "High Commendation",
-                committee: "UNHRC",
-                conference: "Zeste MUN 2025"
-            },
-            {   name: "Gautam Narang",
-                award: "Special Mention",
-                committee: "OAS",
-                conference: "Zeste MUN 2025"
-            },
-            {   name: "Sargun Jindal",
-                award: "Special Mention",
-                committee: "UNID",
-                conference: "Zeste MUN 2025"
-            },
-            {   name: "Avni Khandelwal",
-                award: "Special Mention",
-                committee: "WHO",
-                conference: "Hindu College MUN 2025"
-            },
-            {   name: "Saanvi Jaiswal",
-                award: "Special Mention",
-                committee: "AIPPM",
-                conference: "Zeste MUN 2025"
-            }
+            { name: "Mahie Tripathi & Gautam Narang", award: "Best Delegate", committee: "Continous Crisis Committee", conference: "DPS Dwarka 2025" },
+            { name: "Paavika Singh", award: "Best Delegate", committee: "UNSC", conference: "SFSIMUN 2025" },
+            { name: "Saanvi Jaiswal", award: "Best Delegate", committee: "AIPPM", conference: "Mayoor MUN 2025" },
+            { name: "Avni Khandelwal", award: "High Commendation", committee: "UNODC", conference: "India MUN 2024" },
+            { name: "Paavika Singh", award: "Best Delegate", committee: "UNCOPUOS", conference: "Falcon MUN 2024" },
+            { name: "Amogh Singh Manral & Aarav Gupta", award: "Special Mention", committee: "UNGA", conference: "DPSI MUN 2024" },
+            { name: "Divij Sharma", award: "Best Delegate", committee: "NATO", conference: "Columban MUN 2024" },
+            { name: "Nimrah Ali", award: "Best Delegate", committee: "NATO", conference: "Manav Rachna International MUN 2023" },
+            { name: "Angela Arora", award: "Best Delegate", committee: "GCM", conference: "Columban MUN 2023" },
+            { name: "Aaditya Pande", award: "High Commmendation", committee: "UNCSW", conference: "Columban MUN 2023" },
+            { name: "Atharv Prasad", award: "Best Delegate", committee: "UNGA", conference: "Mayoor MUN 2025" },
+            { name: "Mrigank Bhargava", award: "Best Delegate", committee: "USA", conference: "Mayoor MUN 2025" },
+            { name: "Mahie Tripathi", award: "High Commendation", committee: "UNHRC", conference: "Zeste MUN 2025" },
+            { name: "Gautam Narang", award: "Special Mention", committee: "OAS", conference: "Zeste MUN 2025" },
+            { name: "Sargun Jindal", award: "Special Mention", committee: "UNID", conference: "Zeste MUN 2025" },
+            { name: "Avni Khandelwal", award: "Special Mention", committee: "WHO", conference: "Hindu College MUN 2025" },
+            { name: "Saanvi Jaiswal", award: "Special Mention", committee: "AIPPM", conference: "Zeste MUN 2025" }
         ];
 
         // ==========================================
@@ -280,208 +242,135 @@
                 date: "2025",
                 image: "ZESTE25_MUN.jpeg",
                 description: "<strong>Overall: Runners Up, Best Delegation</strong>",
-                awards: [
-                    "Mahie Tripathi (UNHRC) – High Commendation",
-                    "Mrigank Bhargava (UNSC) – Special Mention",
-                    "Sargun Jindal (UNID) – Special Mention",
-                    "Jhanvi Aggarwal (UNGA) – Special Mention",
-                    "Saanvi Jaiswal (AIPPM) – Special Mention",
-                    "Avni Khandelwal (PBC) – Special Mention",
-                    "Adrija Mukherjee (UNHRC) – Special Mention",
-                    "Gautam Narang (OAS) – Special Mention",
-                    "Atharv Prasad (OAS) – Special Mention",
-                    "Arni Jugran (UNCB) – Special Mention",
-                    "Adamya Sharma (PBC) – Special Mention"
-                ]
+                awards: ["Mahie Tripathi (UNHRC) – High Commendation", "Mrigank Bhargava (UNSC) – Special Mention", "Sargun Jindal (UNID) – Special Mention", "Jhanvi Aggarwal (UNGA) – Special Mention", "Saanvi Jaiswal (AIPPM) – Special Mention", "Avni Khandelwal (PBC) – Special Mention", "Adrija Mukherjee (UNHRC) – Special Mention", "Gautam Narang (OAS) – Special Mention", "Atharv Prasad (OAS) – Special Mention", "Arni Jugran (UNCB) – Special Mention", "Adamya Sharma (PBC) – Special Mention"]
             },
             {
                 title: "Mayoor MUN 2025",
                 date: "2025",
                 image: "Mayoor_MUN.jpeg",
                 description: "<strong>Overall: Best Delegation</strong>",
-                awards: [
-                    "Atharv (UNGA Egypt) – Best Delegate",
-                    "Saanvi (AIPPM) – Best Delegate",
-                    "Mrigank Bhargava (USA) – Best Delegate",
-                    "Suyash Dixit (IP Photo) – High Commendation",
-                    "Bhavya Gupta (UNCSW) – High Commendation",
-                    "Akshra Kapoor (UNGA) – Verbal Mention",
-                    "Janhvi Aggarwal (CBI) – Verbal Mention",
-                    "Shloke Kalra (UK) – Verbal Mention",
-                    "Paksh Puri (UNGA Indonesia) – Verbal Mention",
-                    "Vikramaditya Tyagi (UNSC UK) – Verbal Mention",
-                ]
+                awards: ["Atharv (UNGA Egypt) – Best Delegate", "Saanvi (AIPPM) – Best Delegate", "Mrigank Bhargava (USA) – Best Delegate", "Suyash Dixit (IP Photo) – High Commendation", "Bhavya Gupta (UNCSW) – High Commendation", "Akshra Kapoor (UNGA) – Verbal Mention", "Janhvi Aggarwal (CBI) – Verbal Mention", "Shloke Kalra (UK) – Verbal Mention", "Paksh Puri (UNGA Indonesia) – Verbal Mention", "Vikramaditya Tyagi (UNSC UK) – Verbal Mention"]
             },
             {
                 title: "Columban MUN 2024",
                 date: "2024",
                 image: "Columban24.jpeg",
                 description: "<strong>Overall: BEST SCHOOL DELEGATION</strong>",
-                awards: [
-                    "Divij Sharma (NATO) – Best Delegate",
-                    "Mahie Tripathi (UNHRC) – High Commendation",
-                    "Avni Khandelwal (UNHRC) – High Commendation",
-                    "Atharv Prasad (UNCTC) – High Commendation",
-                    "Gautam Narang (UNCTC) – High Commendation",
-                    "Nimrah Ali (NATO) – High Commendation",
-                    "Paavika Singh (UNHRC) – Special Mention",
-                    "Sargun Jindal (UNHRC) – Special Mention",
-                    "Aarav Gupta (UNCTC) – Special Mention",
-                    "Amogh Singh (UNCTC) – Special Mention",
-                    "Aadvik Tyagi (UNCTC) – Special Mention",
-                    "Yash Raj Singh (UNCTC) – Special Mention",
-                    "Aaditya Pande (UNCSW) – Special Mention",
-                    "Siya Agarwal (UNCSW) – Special Mention",
-                    "Mrigank Bhargawa (Janta Sansad) – Special Mention",
-                    "Kenisha Tyagi (UNHRC) – Verbal Mention",
-                    "Arni Jugaran (UNHRC) – Verbal Mention"
-                ]
+                awards: ["Divij Sharma (NATO) – Best Delegate", "Mahie Tripathi (UNHRC) – High Commendation", "Avni Khandelwal (UNHRC) – High Commendation", "Atharv Prasad (UNCTC) – High Commendation", "Gautam Narang (UNCTC) – High Commendation", "Nimrah Ali (NATO) – High Commendation", "Paavika Singh (UNHRC) – Special Mention", "Sargun Jindal (UNHRC) – Special Mention", "Aarav Gupta (UNCTC) – Special Mention", "Amogh Singh (UNCTC) – Special Mention", "Aadvik Tyagi (UNCTC) – Special Mention", "Yash Raj Singh (UNCTC) – Special Mention", "Aaditya Pande (UNCSW) – Special Mention", "Siya Agarwal (UNCSW) – Special Mention", "Mrigank Bhargawa (Janta Sansad) – Special Mention", "Kenisha Tyagi (UNHRC) – Verbal Mention", "Arni Jugaran (UNHRC) – Verbal Mention"]
             },
             {
                 title: "Zeste MUN 2024",
                 date: "2024",
                 image: "Zeste24.jpg",
                 description: "Detailed performance by the delegation.",
-                awards: [
-                    "Yash Raj Singh (UNGA) – High Commendation",
-                    "Divij Sharma (WFE) – High Commendation",
-                    "Krisha Sharma (WFE) – Special Mention",
-                    "Nimrah Fatimah Ali (SNC) – Special Mention",
-                    "Atharv Prasad (UNGA) – Special Mention",
-                    "Arni Jugran (SCC) – Honourable Mention",
-                    "Maulik Soni (UNHRC) – Honourable Mention"
-                ]
+                awards: ["Yash Raj Singh (UNGA) – High Commendation", "Divij Sharma (WFE) – High Commendation", "Krisha Sharma (WFE) – Special Mention", "Nimrah Fatimah Ali (SNC) – Special Mention", "Atharv Prasad (UNGA) – Special Mention", "Arni Jugran (SCC) – Honourable Mention", "Maulik Soni (UNHRC) – Honourable Mention"]
             },
             {
                 title: "Manav Rachna International MUN 2023",
                 date: "2023",
                 image: "MRIS_MUN23.jpg",
                 description: "Strong showing by the junior team.",
-                awards: [
-                    "Nimrah Ali - Best Delegate",
-                    "Anveesha Pradeep - Best Journalist",
-                    "Paavika Singh - High Commendation",
-                    "Krisha Sharma – Special Mention",
-                    "Aadvik Tyagi - Special Mention",
-                    "Digisha Garg – Special Mention",
-                    "Sargun Jindal - Speicial Mention",
-                    "Mahie Tripathi - Special Mention",
-                    "Avni Khandelwal - Special Mention",
-                    "Divij Sharma - Verbal Mention",
-                    "Jahnvi Aggarwal - Verbal Mention",
-                    "Amogh Singh Manral - Verbal Mention",
-                    "Siddhart Joshi - Verbal Mention"
-                 ]
+                awards: ["Nimrah Ali - Best Delegate", "Anveesha Pradeep - Best Journalist", "Paavika Singh - High Commendation", "Krisha Sharma – Special Mention", "Aadvik Tyagi - Special Mention", "Digisha Garg – Special Mention", "Sargun Jindal - Speicial Mention", "Mahie Tripathi - Special Mention", "Avni Khandelwal - Special Mention", "Divij Sharma - Verbal Mention", "Jahnvi Aggarwal - Verbal Mention", "Amogh Singh Manral - Verbal Mention", "Siddhart Joshi - Verbal Mention"]
             },
             {
                 title: "The Novices MUN '23",
                 date: "2023",
                 image: "Novices23.jpg",
                 description: "Strong showing by the junior team.",
-                awards: [
-                    "Aaditya Pande – Special Mention",
-                    "Divij Sharma – Honourable Mention",
-                    "Mrigank Bhargava – Honourable Mention",
-                    "Paavika Singh – Honourable Mention",
-                    "Siya Agarwal – Honourable Mention",
-                    "Jahnvi Aggarwal – Honourable Mention",
-                    "Advaita Tyagi – Honourable Mention"
-                ]
+                awards: ["Aaditya Pande – Special Mention", "Divij Sharma – Honourable Mention", "Mrigank Bhargava – Honourable Mention", "Paavika Singh – Honourable Mention", "Siya Agarwal – Honourable Mention", "Jahnvi Aggarwal – Honourable Mention", "Advaita Tyagi – Honourable Mention"]
             },
             {
                 title: "Columban MUN 2023",
                 date: "2023",
                 image: "Columban23.jpg",
                 description: "Delegation performance.",
-                awards: [
-                    "Angela (GCM) – Best Delegate",
-                    "Aaditya Pandey (UNCSW) – High Commendation",
-                    "Kriti (UNGA) – Special Mention",
-                    "Atharva (UNGA) – Special Mention",
-                    "Mehr (NATO) – Special Mention",
-                    "Akshaddha (NATO) – Special Mention",
-                    "Jhanvi (NATO) – Special Mention",
-                    "Dev (NATO) – Special Mention",
-                    "Paavika (GCM) – Verbal Mention",
-                    "Rida (UNGA) – Honourable Mention",
-                    "Siya (GCM) – Honourable Mention"
-                ]
+                awards: ["Angela (GCM) – Best Delegate", "Aaditya Pandey (UNCSW) – High Commendation", "Kriti (UNGA) – Special Mention", "Atharva (UNGA) – Special Mention", "Mehr (NATO) – Special Mention", "Akshaddha (NATO) – Special Mention", "Jhanvi (NATO) – Special Mention", "Dev (NATO) – Special Mention", "Paavika (GCM) – Verbal Mention", "Rida (UNGA) – Honourable Mention", "Siya (GCM) – Honourable Mention"]
             }
         ];
 
-        // --- RENDER LOGIC ---
+        // ==========================================
+        // 6. PHOTO GALLERY DATABASE (NEW!)
+        // ==========================================
+        const photosDatabase = [
+            { url: "ZESTE25_MUN.jpeg", alt: "Our Performance at Zeste MUN" },
+            { url: "Mayoor_MUN.jpeg", alt: "Victory at Mayoor MUN" },
+            { url: "Columban24.jpeg", alt: "Columban MUN 2024 Best Delegation" },
+            { url: "Novices23.jpg", alt: "Definate Performance at Novices MUN 2023"},
+            { url: "Columban23.jpg", alt: "Columban MUN 2023 Best Delegation" },
+        ];
+
+        // ==========================================
+        // 7. ARCHIVES / RESOURCES DATABASE (NEW!)
+        // ==========================================
+        const archivesDatabase = [
+            { year: "2024", title: "DPSN MUN 2015 Official Site", url: "https://mrigankswork.github.io/dpsnmun.github.io/details.html" },
+            { year: "2023", title: "DPSN MUN Club 2010 Site", url: "https://dpsnmun.weebly.com/index.html" },
+        ];
+
+        // --- RENDER FUNCTIONS ---
         // 1. News
-        const newsContainer = document.getElementById('news-root');
-        if(newsContainer) {
+        const newsRoot = document.getElementById('news-root');
+        if(newsRoot) {
             newsDatabase.forEach(item => {
-                newsContainer.innerHTML += `
-                    <div class="news-box">
-                        <div class="news-date">${item.date}</div>
-                        <div class="news-content">${item.text}</div>
-                    </div>`;
+                newsRoot.innerHTML += `<div class="news-box"><div class="news-date">${item.date}</div><div class="news-content">${item.text}</div></div>`;
             });
         }
 
         // 2. Members
-        const membersContainer = document.getElementById('members-root');
-        if(membersContainer) {
-            membersDatabase.forEach(member => {
-                membersContainer.innerHTML += `
-                    <div class="member-card">
-                        <div class="member-name">${member.name}</div>
-                        <div class="member-role">${member.role}</div>
-                    </div>`;
+        const membersRoot = document.getElementById('members-root');
+        if(membersRoot) {
+            membersDatabase.forEach(m => {
+                membersRoot.innerHTML += `<div class="member-card"><div class="member-name">${m.name}</div><div class="member-role">${m.role}</div></div>`;
             });
         }
 
-        // 3. Seniors (NEW!)
-        const seniorsContainer = document.getElementById('seniors-root');
-        if(seniorsContainer) {
-            seniorsDatabase.forEach(senior => {
-                seniorsContainer.innerHTML += `
-                    <div class="member-card senior-card">
-                        <div class="member-name">${senior.name}</div>
-                        <div class="member-role">${senior.role}</div>
-                    </div>`;
+        // 3. Seniors
+        const seniorsRoot = document.getElementById('seniors-root');
+        if(seniorsRoot) {
+            seniorsDatabase.forEach(s => {
+                seniorsRoot.innerHTML += `<div class="member-card senior-card"><div class="member-name">${s.name}</div><div class="member-role">${s.role}</div></div>`;
             });
         }
 
         // 4. Individual Awards
-        const individualContainer = document.getElementById('individual-root');
-        if(individualContainer) {
-            individualAwardsDatabase.forEach(award => {
-                individualContainer.innerHTML += `
-                    <div class="achievement-card">
-                        <div class="achievement-badge">Winner</div>
-                        <div class="student-name">${award.name}</div>
-                        <div class="award-info"><strong>${award.award}</strong> | ${award.committee}</div>
-                        <div class="conf-info">${award.conference}</div>
-                    </div>`;
+        const indRoot = document.getElementById('individual-root');
+        if(indRoot) {
+            individualAwardsDatabase.forEach(a => {
+                indRoot.innerHTML += `<div class="achievement-card"><div class="achievement-badge">Winner</div><div class="student-name">${a.name}</div><div class="award-info"><strong>${a.award}</strong> | ${a.committee}</div><div class="conf-info">${a.conference}</div></div>`;
             });
         }
 
         // 5. Events
-        const eventsContainer = document.getElementById('events-root');
-        if(eventsContainer) {
-            eventsDatabase.forEach(event => {
-                let awardsListHTML = '';
-                if (event.awards && event.awards.length > 0) {
-                    awardsListHTML = `<ul class="award-list">`;
-                    event.awards.forEach(award => {
-                        awardsListHTML += `<li>${award}</li>`;
-                    });
-                    awardsListHTML += `</ul>`;
+        const eventsRoot = document.getElementById('events-root');
+        if(eventsRoot) {
+            eventsDatabase.forEach(e => {
+                let list = '';
+                if(e.awards && e.awards.length > 0) {
+                    list = '<ul class="award-list">';
+                    e.awards.forEach(aw => list += `<li>${aw}</li>`);
+                    list += '</ul>';
                 }
+                eventsRoot.innerHTML += `<div class="card"><img src="${e.image}" alt="${e.title}" class="card-img"><div class="card-body"><span class="card-date">${e.date}</span><h3 class="card-title">${e.title}</h3><p class="card-desc">${e.description}</p>${list}</div></div>`;
+            });
+        }
 
-                eventsContainer.innerHTML += `
-                    <div class="card">
-                        <img src="${event.image}" alt="${event.title}" class="card-img">
-                        <div class="card-body">
-                            <span class="card-date">${event.date}</span>
-                            <h3 class="card-title">${event.title}</h3>
-                            <p class="card-desc">${event.description}</p>
-                            ${awardsListHTML}
-                        </div>
+        // 6. Photos (NEW RENDER)
+        const photosRoot = document.getElementById('photos-root');
+        if(photosRoot) {
+            photosDatabase.forEach(p => {
+                photosRoot.innerHTML += `<div class="photo-item"><img src="${p.url}" alt="${p.alt}"><div class="photo-caption">${p.alt}</div></div>`;
+            });
+        }
+
+        // 7. Archives (NEW RENDER)
+        const archivesRoot = document.getElementById('archives-root');
+        if(archivesRoot) {
+            archivesDatabase.forEach(item => {
+                archivesRoot.innerHTML += `
+                    <div class="archive-card">
+                        <div class="archive-year">${item.year}</div>
+                        <div class="archive-title">${item.title}</div>
+                        <a href="${item.url}" class="archive-link" target="_blank">View Resource</a>
                     </div>`;
             });
         }
