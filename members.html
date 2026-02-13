@@ -1,50 +1,364 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Members - DPS Noida MUN Club</title>
+    <title>Secretariat — DPS Noida MUN Club</title>
+    <meta name="description" content="Meet the Secretariat and Alumni of the DPS Noida MUN Club.">
+    <link rel="stylesheet" href="styles.css">
     <style>
-        /* SHARED CSS */
-        :root { --dps-green: #006837; --bg-light: #f9f9f9; }
-        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--bg-light); color: #333; }
-        nav { background: #222; padding: 1rem; text-align: center; }
-        nav a { color: #fff; text-decoration: none; margin: 0 15px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
-        nav a:hover, nav a.active { color: #4CAF50; }
-        
-        /* MEMBERS GRID */
-        section { padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
-        h2 { text-align: center; color: #444; border-bottom: 2px solid #ddd; padding-bottom: 10px; margin-bottom: 30px; }
-        .members-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 30px; text-align: center; }
-        .member-card { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-top: 4px solid var(--dps-green); transition: transform 0.2s; }
-        .member-card:hover { transform: translateY(-5px); }
-        .member-name { font-weight: bold; font-size: 1.1rem; }
-        .member-role { color: #777; font-size: 0.9rem; margin-top: 5px; }
-        .senior-card { border-top-color: #555; background: #f4f4f4; }
-        footer { text-align: center; padding: 40px; background: #222; color: #777; margin-top: 50px; }
+        /* === PAGE HEADER === */
+        .page-header {
+            padding: 130px 2rem 60px 2rem;
+            text-align: center;
+            background: linear-gradient(170deg, #fff 0%, var(--dps-green-pale) 50%, #fff 100%);
+            position: relative;
+        }
+
+        .page-header h1 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--dps-green);
+            position: relative;
+        }
+
+        .page-header p {
+            color: var(--text-muted);
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+
+        /* === SECRETARIAT GRID === */
+        .secretariat-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .member-card {
+            flex: 0 1 220px;
+            max-width: 260px;
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            border-radius: 14px;
+            padding: 1.75rem 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .member-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--dps-green), var(--dps-green-pale));
+        }
+
+        .member-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--border-medium);
+        }
+
+        .member-name {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            margin-bottom: 0.35rem;
+        }
+
+        .member-role {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        /* Council members (first 4) get subtle green highlight */
+        .council-member {
+            background: var(--dps-green-pale);
+            border-color: rgba(0, 104, 55, 0.25);
+        }
+
+        .council-member::before {
+            height: 4px;
+            background: var(--dps-green);
+        }
+
+        /* === TIMELINE === */
+        .timeline-container {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 3px;
+            background: linear-gradient(to bottom, transparent, var(--dps-green) 5%, var(--dps-green) 95%, transparent);
+            transform: translateX(-50%);
+            border-radius: 3px;
+        }
+
+        .timeline-year {
+            position: relative;
+            text-align: center;
+            margin: 2rem 0 1rem 0;
+            z-index: 2;
+        }
+
+        .year-badge {
+            display: inline-block;
+            background: var(--dps-green);
+            color: #fff;
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding: 10px 28px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 104, 55, 0.25);
+            letter-spacing: 0.5px;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            position: relative;
+        }
+
+        .timeline-item.left {
+            flex-direction: row;
+        }
+
+        .timeline-item.right {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-card {
+            flex: 0 0 calc(50% - 40px);
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .timeline-item.left .timeline-card {
+            margin-right: auto;
+            text-align: right;
+        }
+
+        .timeline-item.right .timeline-card {
+            margin-left: auto;
+            text-align: left;
+        }
+
+        .timeline-card:hover {
+            border-color: var(--dps-green);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .timeline-card .member-name {
+            font-size: 1rem;
+        }
+
+        .timeline-card .member-role {
+            font-size: 0.75rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 14px;
+            height: 14px;
+            background: var(--dps-green);
+            border: 3px solid var(--bg-off-white);
+            border-radius: 50%;
+            z-index: 2;
+            box-shadow: 0 0 0 3px rgba(0, 104, 55, 0.15);
+        }
+
+        .timeline-connector {
+            flex: 0 0 40px;
+            height: 1px;
+            background: var(--border-medium);
+        }
+
+        /* === MOBILE === */
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 100px 1rem 40px 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .page-header p {
+                font-size: 0.85rem;
+            }
+
+            .member-card {
+                flex: 0 1 calc(50% - 1rem);
+                padding: 1.25rem 1rem;
+            }
+
+            .member-name {
+                font-size: 0.95rem;
+            }
+
+            .member-role {
+                font-size: 0.7rem;
+            }
+
+            .timeline-line {
+                left: 20px;
+            }
+
+            .timeline-year {
+                text-align: left;
+                padding-left: 50px;
+            }
+
+            .year-badge {
+                font-size: 0.9rem;
+                padding: 8px 20px;
+            }
+
+            .timeline-item,
+            .timeline-item.left,
+            .timeline-item.right {
+                flex-direction: row;
+                padding-left: 50px;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .timeline-connector {
+                display: none;
+            }
+
+            .timeline-card,
+            .timeline-item.left .timeline-card,
+            .timeline-item.right .timeline-card {
+                flex: 1;
+                text-align: left;
+                margin: 0;
+            }
+
+            .timeline-card {
+                padding: 1rem;
+            }
+
+            .timeline-card .member-name {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 90px 0.75rem 30px 0.75rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.6rem;
+            }
+
+            .member-card {
+                flex: 1 1 100%;
+                max-width: 100%;
+            }
+
+            .secretariat-grid {
+                gap: 0.75rem;
+            }
+
+            .timeline-container {
+                padding: 1rem 0;
+            }
+
+            .timeline-card {
+                padding: 0.75rem;
+                border-radius: 10px;
+            }
+        }
     </style>
 </head>
+
 <body>
+
     <nav>
-        <a href="index.html">Home</a>
-        <a href="members.html" class="active">Secretariat</a>
-        <a href="victories.html">Victories</a>
-        <a href="gallery.html">Gallery</a>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="MUN_Logo.jpeg" alt="Logo"> DPSN MUN
+            </a>
+            <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="members.html" class="active">Secretariat</a></li>
+                <li><a href="victories.html">Victories</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+            </ul>
+        </div>
     </nav>
 
-    <section>
-        <h2>The Secretariat</h2>
-        <div class="members-grid" id="members-root"></div>
+    <div class="page-header">
+        <h1>The Secretariat</h1>
+        <p>Current leadership of the MUN Club</p>
+    </div>
+
+    <section class="section" style="padding-top: 40px;">
+        <div class="secretariat-grid" id="members-root"></div>
     </section>
 
-    <section style="margin-top: 50px;">
-        <h2>The Seniors</h2>
-        <div class="members-grid" id="seniors-root"></div>
+    <section class="section">
+        <h2 class="section-title reveal">The Legacy</h2>
+        <p class="section-subtitle reveal">A timeline of the leaders who built this club</p>
+        <div class="section-divider reveal"></div>
+
+        <div class="timeline-container" id="timeline-root">
+            <div class="timeline-line"></div>
+        </div>
     </section>
 
-    <footer>&copy; 2025 DPS Noida MUN Club.</footer>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">DPSN MUN Club</div>
+            <div class="footer-tagline">May the Force be with Us</div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="members.html">Secretariat</a>
+                <a href="victories.html">Victories</a>
+                <a href="gallery.html">Gallery</a>
+            </div>
+            <div class="footer-copy">&copy; 2025 DPS Noida MUN Club. All rights reserved.</div>
+        </div>
+    </footer>
 
     <script>
+        function toggleMenu() { document.getElementById('navLinks').classList.toggle('active'); }
+
         const membersDatabase = [
             { name: "Atharv Prasad", role: "President" },
             { name: "Aadya S. Kumar", role: "Secretary" },
@@ -62,35 +376,87 @@
             { name: "Harshit Bhasin", role: "Junior Core" }
         ];
 
+        const mRoot = document.getElementById('members-root');
+        membersDatabase.forEach((m, i) => {
+            const isCouncil = i < 4; // First 4 are council: President, Secretary, VP, Joint Secretary
+            const card = document.createElement('div');
+            card.className = `member-card reveal ${isCouncil ? 'council-member' : ''}`;
+            card.style.transitionDelay = (i * 0.05) + 's';
+            card.innerHTML = `
+                <div class="member-name">${m.name}</div>
+                <div class="member-role">${m.role}</div>`;
+            mRoot.appendChild(card);
+        });
+
         const seniorsDatabase = [
-            { name: "Divij Sharma", role: "Prezident MUN Club, C/O 2025" },
-            { name: "Krisha Sharma", role: "Secretary MUN Club, C/O 2025" },
-            { name: "Aaditya Pande", role: "Head Boy, C/O 2025" },
-            { name: "Nimrah Ali", role: "Senior, C/O 2025" },
-            { name: "Siya Aggarwal", role: "Senior, C/O 2025" },
-            { name: "Akshaddha Singh", role: "Senior, C/O 2025" },
-            { name: "Angela Arora", role: "Head Girl, C/O 2024" },
-            { name: "Kriti Chibber", role: "Prezident MUN Club, C/O 2024" },
-            { name: "Izhaan Ashfaq", role: "Secretary MUN Club, C/O 2024" },
-            { name: "Sanidhya Gurudev", role: "Senior, C/O 2024" },
-            { name: "Arhaan Akmal", role: "Head Boy, C/O 2023" },
-            { name: "Suhana Sharma", role: "Senior, C/O 2023" },
-            { name: "Soha Khan", role: "Senior, C/O 2023"},
-            { name: "Asher Kaul", role: "Prezident, C/O 2022"},
-            { name: "Advait Mishra", role: "Head Boy, C/O 2022"},
-            { name: "Vanshika Jha", role: "Head Girl, C/O 2022"},
-            { name: "Pranava Dhar", role: "Head Boy, C/O 2020"},
-            { name: "Aanya Wig", role: "Prezident, C/O 2018"},
-            { name: "Rithupar Pathy", role: "Senior, C/O 2018"},
-            { name: "Nimish Batra", role: "Senior, C/O 2018"},
-            { name: "Karn Kasturi Sharma", role: "Senior, C/O 2018"},
-            { name: "Drishtant Chakraberty", role: "Head Boy, C/O 2017"},
+            { name: "Divij Sharma", role: "President MUN Club", year: 2025 },
+            { name: "Krisha Sharma", role: "Secretary MUN Club", year: 2025 },
+            { name: "Aaditya Pande", role: "Head Boy", year: 2025 },
+            { name: "Nimrah Ali", role: "Senior", year: 2025 },
+            { name: "Siya Aggarwal", role: "Senior", year: 2025 },
+            { name: "Akshaddha Singh", role: "Senior", year: 2025 },
+            { name: "Angela Arora", role: "Head Girl", year: 2024 },
+            { name: "Kriti Chibber", role: "President MUN Club", year: 2024 },
+            { name: "Izhaan Ashfaq", role: "Secretary MUN Club", year: 2024 },
+            { name: "Sanidhya Gurudev", role: "Senior", year: 2024 },
+            { name: "Arhaan Akmal", role: "Head Boy", year: 2023 },
+            { name: "Suhana Sharma", role: "Senior", year: 2023 },
+            { name: "Soha Khan", role: "Senior", year: 2023 },
+            { name: "Asher Kaul", role: "President", year: 2022 },
+            { name: "Advait Mishra", role: "Head Boy", year: 2022 },
+            { name: "Vanshika Jha", role: "Head Girl", year: 2022 },
+            { name: "Pranava Dhar", role: "Head Boy", year: 2020 },
+            { name: "Aanya Wig", role: "President", year: 2018 },
+            { name: "Rithupar Pathy", role: "Senior", year: 2018 },
+            { name: "Nimish Batra", role: "Senior", year: 2018 },
+            { name: "Karn Kasturi Sharma", role: "Senior", year: 2018 },
+            { name: "Drishtant Chakraberty", role: "Head Boy", year: 2017 }
         ];
 
-        const mRoot = document.getElementById('members-root');
-        membersDatabase.forEach(m => mRoot.innerHTML += `<div class="member-card"><div class="member-name">${m.name}</div><div class="member-role">${m.role}</div></div>`);
-        const sRoot = document.getElementById('seniors-root');
-        seniorsDatabase.forEach(s => sRoot.innerHTML += `<div class="member-card senior-card"><div class="member-name">${s.name}</div><div class="member-role">${s.role}</div></div>`);
+        const byYear = {};
+        seniorsDatabase.forEach(s => { if (!byYear[s.year]) byYear[s.year] = []; byYear[s.year].push(s); });
+
+        const timelineRoot = document.getElementById('timeline-root');
+        const years = Object.keys(byYear).sort((a, b) => b - a);
+
+        years.forEach(year => {
+            const yearEl = document.createElement('div');
+            yearEl.className = 'timeline-year reveal';
+            yearEl.innerHTML = `<span class="year-badge">Class of ${year}</span>`;
+            timelineRoot.appendChild(yearEl);
+
+            byYear[year].forEach((member, i) => {
+                const side = i % 2 === 0 ? 'left' : 'right';
+                const revealClass = side === 'left' ? 'reveal-left' : 'reveal-right';
+                const item = document.createElement('div');
+                item.className = `timeline-item ${side}`;
+
+                if (side === 'left') {
+                    item.innerHTML = `
+                        <div class="timeline-card ${revealClass}">
+                            <div class="member-name">${member.name}</div>
+                            <div class="member-role">${member.role}</div>
+                        </div>
+                        <div class="timeline-connector"></div>
+                        <div class="timeline-dot"></div>`;
+                } else {
+                    item.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-connector"></div>
+                        <div class="timeline-card ${revealClass}">
+                            <div class="member-name">${member.name}</div>
+                            <div class="member-role">${member.role}</div>
+                        </div>`;
+                }
+                timelineRoot.appendChild(item);
+            });
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+        document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
     </script>
 </body>
+
 </html>

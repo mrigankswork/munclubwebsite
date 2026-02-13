@@ -1,146 +1,512 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Victories - DPS Noida MUN Club</title>
+    <title>Victories — DPS Noida MUN Club</title>
+    <meta name="description" content="Hall of fame and delegation victories of the DPS Noida MUN Club.">
+    <link rel="stylesheet" href="styles.css">
     <style>
-        /* SHARED CSS */
-        :root { --dps-green: #006837; --gold: #f1c40f; --bg-light: #f9f9f9; }
-        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--bg-light); color: #333; }
-        nav { background: #222; padding: 1rem; text-align: center; }
-        nav a { color: #fff; text-decoration: none; margin: 0 15px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
-        nav a:hover, nav a.active { color: #4CAF50; }
+        .page-header {
+            padding: 130px 2rem 60px 2rem;
+            text-align: center;
+            background: linear-gradient(170deg, #fff 0%, var(--dps-green-pale) 50%, #fff 100%);
+        }
 
-        section { padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
-        h2 { text-align: center; color: #444; border-bottom: 2px solid #ddd; padding-bottom: 10px; margin-bottom: 30px; }
+        .page-header h1 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--dps-green);
+        }
 
-        /* INDIVIDUAL AWARDS */
-        .achievements-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .achievement-card { background: #fff; padding: 20px; border-radius: 8px; border-left: 6px solid var(--gold); box-shadow: 0 2px 8px rgba(0,0,0,0.08); position: relative; }
-        .achievement-badge { position: absolute; top: 15px; right: 15px; background: var(--gold); color: #fff; padding: 4px 8px; font-size: 0.7rem; font-weight: bold; border-radius: 4px; text-transform: uppercase; }
-        .student-name { font-size: 1.2rem; font-weight: bold; color: #333; }
-        .award-info { color: #555; font-size: 0.95rem; }
+        .page-header p {
+            color: var(--text-muted);
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
 
-        /* DELEGATION EVENTS */
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
-        .card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
-        .card-img { width: 100%; height: 200px; background: #ddd; object-fit: cover; }
-        .card-body { padding: 20px; }
-        .card-title { font-size: 1.2rem; margin: 0 0 10px 0; color: var(--dps-green); }
-        .award-list { font-size: 0.85rem; color: #555; padding-left: 20px; max-height: 150px; overflow-y: auto; margin-top: 10px; border-top: 1px solid #eee; padding-top:10px; }
-        
-        footer { text-align: center; padding: 40px; background: #222; color: #777; margin-top: 50px; }
+        /* === AWARDS === */
+        .awards-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.25rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .award-card {
+            flex: 0 1 320px;
+            max-width: 380px;
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            border-radius: 14px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .award-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 4px;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .award-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--border-medium);
+        }
+
+        /* Award tiers — all green-toned */
+        .award-best::before {
+            background: var(--dps-green);
+        }
+
+        .award-hc::before {
+            background: #4a9e6e;
+        }
+
+        .award-sm::before {
+            background: #7bb89a;
+        }
+
+        .award-vm::before {
+            background: #a8d4bc;
+        }
+
+        .award-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 4px 10px;
+            border-radius: 50px;
+        }
+
+        .award-best .award-badge {
+            background: var(--dps-green-pale);
+            color: var(--dps-green);
+        }
+
+        .award-hc .award-badge {
+            background: #e8f5ee;
+            color: #4a9e6e;
+        }
+
+        .award-sm .award-badge {
+            background: #eef7f2;
+            color: #5a9e75;
+        }
+
+        .award-vm .award-badge {
+            background: #f0f5f2;
+            color: var(--text-muted);
+        }
+
+        .award-name {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            margin-bottom: 0.4rem;
+            padding-right: 80px;
+        }
+
+        .award-detail {
+            color: var(--dps-green);
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.2rem;
+        }
+
+        .award-conference {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-style: italic;
+        }
+
+        /* === EVENTS === */
+        .events-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .event-card {
+            flex: 1 1 450px;
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .event-card:hover {
+            border-color: var(--dps-green);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .event-img-wrapper {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .event-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .event-card:hover .event-img-wrapper img {
+            transform: scale(1.04);
+        }
+
+        .event-img-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 104, 55, 0.85) 0%, transparent 50%);
+        }
+
+        .event-title-overlay {
+            position: absolute;
+            bottom: 1rem;
+            left: 1.5rem;
+            z-index: 1;
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .event-body {
+            padding: 1.5rem;
+        }
+
+        .event-result {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .event-result strong {
+            color: var(--dps-green);
+        }
+
+        .event-awards-list {
+            list-style: none;
+            padding: 0;
+            max-height: 180px;
+            overflow-y: auto;
+            border-top: 1px solid var(--border-light);
+            padding-top: 1rem;
+        }
+
+        .event-awards-list li {
+            padding: 5px 0;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--bg-light-grey);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .event-awards-list li::before {
+            content: '◆';
+            color: var(--dps-green);
+            font-size: 0.45rem;
+            flex-shrink: 0;
+        }
+
+        .event-awards-list::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .event-awards-list::-webkit-scrollbar-thumb {
+            background: rgba(0, 104, 55, 0.2);
+            border-radius: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 100px 1rem 40px 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .page-header p {
+                font-size: 0.85rem;
+            }
+
+            .award-card {
+                flex: 1 1 100%;
+                padding: 1.25rem;
+            }
+
+            .award-name {
+                font-size: 0.95rem;
+                padding-right: 70px;
+            }
+
+            .award-badge {
+                font-size: 0.6rem;
+                padding: 3px 8px;
+            }
+
+            .award-detail {
+                font-size: 0.8rem;
+            }
+
+            .award-conference {
+                font-size: 0.75rem;
+            }
+
+            .event-card {
+                flex: 1 1 100%;
+            }
+
+            .event-img-wrapper {
+                height: 180px;
+            }
+
+            .event-title-overlay {
+                font-size: 1.1rem;
+            }
+
+            .event-body {
+                padding: 1.25rem;
+            }
+
+            .event-result {
+                font-size: 0.88rem;
+            }
+
+            .event-awards-list {
+                max-height: 160px;
+            }
+
+            .event-awards-list li {
+                font-size: 0.78rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 90px 0.75rem 30px 0.75rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.6rem;
+            }
+
+            .event-img-wrapper {
+                height: 150px;
+            }
+
+            .event-title-overlay {
+                font-size: 1rem;
+                left: 1rem;
+            }
+
+            .event-body {
+                padding: 1rem;
+            }
+
+            .award-card {
+                padding: 1rem;
+                border-radius: 10px;
+            }
+
+            .award-name {
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
+
 <body>
+
     <nav>
-        <a href="index.html">Home</a>
-        <a href="members.html">Secretariat</a>
-        <a href="victories.html" class="active">Victories</a>
-        <a href="gallery.html">Gallery</a>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="MUN_Logo.jpeg" alt="Logo"> DPSN MUN
+            </a>
+            <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="members.html">Secretariat</a></li>
+                <li><a href="victories.html" class="active">Victories</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+            </ul>
+        </div>
     </nav>
 
-    <section>
-        <h2>Individual Hall of Fame</h2>
-        <div class="achievements-grid" id="individual-root"></div>
+    <div class="page-header">
+        <h1>Hall of Fame</h1>
+        <p>Every award tells a story of dedication</p>
+    </div>
+
+    <section class="section" style="padding-top: 40px;">
+        <h2 class="section-title reveal">Individual Awards</h2>
+        <div class="section-divider reveal"></div>
+        <div class="awards-grid" id="individual-root"></div>
     </section>
 
-    <section style="margin-top: 50px;">
-        <h2>School Delegation Awards</h2>
-        <div class="gallery-grid" id="events-root"></div>
+    <section class="section"
+        style="background: var(--bg-light-grey); max-width: 100%; padding-left: 2rem; padding-right: 2rem;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h2 class="section-title reveal">School Delegation Awards</h2>
+            <div class="section-divider reveal"></div>
+            <div class="events-grid" id="events-root"></div>
+        </div>
     </section>
 
-    <footer>&copy; 2025 DPS Noida MUN Club.</footer>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">DPSN MUN Club</div>
+            <div class="footer-tagline">May the Force be with Us</div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="members.html">Secretariat</a>
+                <a href="victories.html">Victories</a>
+                <a href="gallery.html">Gallery</a>
+            </div>
+            <div class="footer-copy">&copy; 2025 DPS Noida MUN Club. All rights reserved.</div>
+        </div>
+    </footer>
 
     <script>
+        function toggleMenu() { document.getElementById('navLinks').classList.toggle('active'); }
+
         const individualAwardsDatabase = [
-            { name: "Mahie Tripathi & Gautam Narang", award: "Best Delegate", committee: "CCC", conference: "DPS Dwarka 2025" },
-            { name: "Paavika Singh", award: "Best Delegate", committee: "UNSC", conference: "SFSIMUN 2025" },
-            { name: "Saanvi Jaiswal", award: "Best Delegate", committee: "AIPPM", conference: "Mayoor MUN 2025" },
-            { name: "Avni Khandelwal", award: "High Commendation", committee: "UNODC", conference: "India MUN 2024" },
-            { name: "Paavika Singh", award: "Best Delegate", committee: "UNCOPUOS", conference: "Falcon MUN 2024" },
-            { name: "Amogh Singh Manral & Aarav Gupta", award: "Special Mention", committee: "UNGA", conference: "DPSI MUN 2024" },
-            { name: "Divij Sharma", award: "Best Delegate", committee: "NATO", conference: "Columban MUN 2024" },
-            { name: "Nimrah Ali", award: "Best Delegate", committee: "NATO", conference: "Manav Rachna International MUN 2023" },
-            { name: "Angela Arora", award: "Best Delegate", committee: "GCM", conference: "Columban MUN 2023" },
-            { name: "Aaditya Pande", award: "High Commmendation", committee: "UNCSW", conference: "Columban MUN 2023" },
             { name: "Atharv Prasad", award: "Best Delegate", committee: "UNGA", conference: "Mayoor MUN 2025" },
             { name: "Mrigank Bhargava", award: "Best Delegate", committee: "USA", conference: "Mayoor MUN 2025" },
+            { name: "Saanvi Jaiswal", award: "Best Delegate", committee: "AIPPM", conference: "Mayoor MUN 2025" },
+            { name: "Mahie Tripathi & Gautam Narang", award: "Best Delegate", committee: "CCC", conference: "DPS Dwarka 2025" },
+            { name: "Paavika Singh", award: "Best Delegate", committee: "UNSC", conference: "SFSIMUN 2025" },
             { name: "Mahie Tripathi", award: "High Commendation", committee: "UNHRC", conference: "Zeste MUN 2025" },
+            { name: "Avni Khandelwal", award: "High Commendation", committee: "UNODC", conference: "India MUN 2024" },
+            { name: "Paavika Singh", award: "Best Delegate", committee: "UNCOPUOS", conference: "Falcon MUN 2024" },
+            { name: "Divij Sharma", award: "Best Delegate", committee: "NATO", conference: "Columban MUN 2024" },
+            { name: "Nimrah Ali", award: "Best Delegate", committee: "NATO", conference: "MRIS MUN 2023" },
+            { name: "Angela Arora", award: "Best Delegate", committee: "GCM", conference: "Columban MUN 2023" },
+            { name: "Aaditya Pande", award: "High Commendation", committee: "UNCSW", conference: "Columban MUN 2023" },
             { name: "Gautam Narang", award: "Special Mention", committee: "OAS", conference: "Zeste MUN 2025" },
             { name: "Sargun Jindal", award: "Special Mention", committee: "UNID", conference: "Zeste MUN 2025" },
             { name: "Avni Khandelwal", award: "Special Mention", committee: "WHO", conference: "Hindu College MUN 2025" },
-            { name: "Saanvi Jaiswal", award: "Special Mention", committee: "AIPPM", conference: "Zeste MUN 2025" }
+            { name: "Saanvi Jaiswal", award: "Special Mention", committee: "AIPPM", conference: "Zeste MUN 2025" },
+            { name: "Amogh Singh Manral & Aarav Gupta", award: "Special Mention", committee: "UNGA", conference: "DPSI MUN 2024" }
         ];
+
+        function getAwardClass(award) {
+            const a = award.toLowerCase();
+            if (a.includes('best')) return 'award-best';
+            if (a.includes('high')) return 'award-hc';
+            if (a.includes('special')) return 'award-sm';
+            return 'award-vm';
+        }
+
+        const indRoot = document.getElementById('individual-root');
+        individualAwardsDatabase.forEach((a, i) => {
+            const cls = getAwardClass(a.award);
+            const card = document.createElement('div');
+            card.className = `award-card ${cls} reveal`;
+            card.style.transitionDelay = (i * 0.04) + 's';
+            card.innerHTML = `
+                <div class="award-badge">${a.award}</div>
+                <div class="award-name">${a.name}</div>
+                <div class="award-detail">${a.committee}</div>
+                <div class="award-conference">${a.conference}</div>`;
+            indRoot.appendChild(card);
+        });
 
         const eventsDatabase = [
             {
-                title: "Zeste MUN 2025",
-                date: "2025",
-                image: "ZESTE25_MUN.jpeg",
+                title: "Zeste MUN 2025", image: "ZESTE25_MUN.jpeg",
                 description: "<strong>Overall: Runners Up, Best Delegation</strong>",
                 awards: ["Mahie Tripathi (UNHRC) – High Commendation", "Mrigank Bhargava (UNSC) – Special Mention", "Sargun Jindal (UNID) – Special Mention", "Jhanvi Aggarwal (UNGA) – Special Mention", "Saanvi Jaiswal (AIPPM) – Special Mention", "Avni Khandelwal (PBC) – Special Mention", "Adrija Mukherjee (UNHRC) – Special Mention", "Gautam Narang (OAS) – Special Mention", "Atharv Prasad (OAS) – Special Mention", "Arni Jugran (UNCB) – Special Mention", "Adamya Sharma (PBC) – Special Mention"]
             },
             {
-                title: "Mayoor MUN 2025",
-                date: "2025",
-                image: "Mayoor_MUN.jpeg",
+                title: "Mayoor MUN 2025", image: "Mayoor_MUN.jpeg",
                 description: "<strong>Overall: Best Delegation</strong>",
                 awards: ["Atharv (UNGA Egypt) – Best Delegate", "Saanvi (AIPPM) – Best Delegate", "Mrigank Bhargava (USA) – Best Delegate", "Suyash Dixit (IP Photo) – High Commendation", "Bhavya Gupta (UNCSW) – High Commendation", "Akshra Kapoor (UNGA) – Verbal Mention", "Janhvi Aggarwal (CBI) – Verbal Mention", "Shloke Kalra (UK) – Verbal Mention", "Paksh Puri (UNGA Indonesia) – Verbal Mention", "Vikramaditya Tyagi (UNSC UK) – Verbal Mention"]
             },
             {
-                title: "Columban MUN 2024",
-                date: "2024",
-                image: "Columban24.jpeg",
+                title: "Columban MUN 2024", image: "Columban24.jpeg",
                 description: "<strong>Overall: BEST SCHOOL DELEGATION</strong>",
                 awards: ["Divij Sharma (NATO) – Best Delegate", "Mahie Tripathi (UNHRC) – High Commendation", "Avni Khandelwal (UNHRC) – High Commendation", "Atharv Prasad (UNCTC) – High Commendation", "Gautam Narang (UNCTC) – High Commendation", "Nimrah Ali (NATO) – High Commendation", "Paavika Singh (UNHRC) – Special Mention", "Sargun Jindal (UNHRC) – Special Mention", "Aarav Gupta (UNCTC) – Special Mention", "Amogh Singh (UNCTC) – Special Mention", "Aadvik Tyagi (UNCTC) – Special Mention", "Yash Raj Singh (UNCTC) – Special Mention", "Aaditya Pande (UNCSW) – Special Mention", "Siya Agarwal (UNCSW) – Special Mention", "Mrigank Bhargawa (Janta Sansad) – Special Mention", "Kenisha Tyagi (UNHRC) – Verbal Mention", "Arni Jugaran (UNHRC) – Verbal Mention"]
             },
             {
-                title: "Zeste MUN 2024",
-                date: "2024",
-                image: "Zeste24.jpg",
+                title: "Zeste MUN 2024", image: "Zeste24.jpg",
                 description: "Detailed performance by the delegation.",
                 awards: ["Yash Raj Singh (UNGA) – High Commendation", "Divij Sharma (WFE) – High Commendation", "Krisha Sharma (WFE) – Special Mention", "Nimrah Fatimah Ali (SNC) – Special Mention", "Atharv Prasad (UNGA) – Special Mention", "Arni Jugran (SCC) – Honourable Mention", "Maulik Soni (UNHRC) – Honourable Mention"]
             },
             {
-                title: "Manav Rachna International MUN 2023",
-                date: "2023",
-                image: "MRIS_MUN23.jpg",
+                title: "MRIS MUN 2023", image: "MRIS_MUN23.jpg",
                 description: "Strong showing by the junior team.",
-                awards: ["Nimrah Ali - Best Delegate", "Anveesha Pradeep - Best Journalist", "Paavika Singh - High Commendation", "Krisha Sharma – Special Mention", "Aadvik Tyagi - Special Mention", "Digisha Garg – Special Mention", "Sargun Jindal - Speicial Mention", "Mahie Tripathi - Special Mention", "Avni Khandelwal - Special Mention", "Divij Sharma - Verbal Mention", "Jahnvi Aggarwal - Verbal Mention", "Amogh Singh Manral - Verbal Mention", "Siddhart Joshi - Verbal Mention"]
+                awards: ["Nimrah Ali - Best Delegate", "Anveesha Pradeep - Best Journalist", "Paavika Singh - High Commendation", "Krisha Sharma – Special Mention", "Aadvik Tyagi - Special Mention", "Digisha Garg – Special Mention", "Sargun Jindal - Special Mention", "Mahie Tripathi - Special Mention", "Avni Khandelwal - Special Mention", "Divij Sharma - Verbal Mention", "Jahnvi Aggarwal - Verbal Mention", "Amogh Singh Manral - Verbal Mention", "Siddhart Joshi - Verbal Mention"]
             },
             {
-                title: "The Novices MUN '23",
-                date: "2023",
-                image: "Novices23.jpg",
+                title: "Novices MUN 2023", image: "Novices23.jpg",
                 description: "Strong showing by the junior team.",
                 awards: ["Aaditya Pande – Special Mention", "Divij Sharma – Honourable Mention", "Mrigank Bhargava – Honourable Mention", "Paavika Singh – Honourable Mention", "Siya Agarwal – Honourable Mention", "Jahnvi Aggarwal – Honourable Mention", "Advaita Tyagi – Honourable Mention"]
             },
             {
-                title: "Columban MUN 2023",
-                date: "2023",
-                image: "Columban23.jpg",
+                title: "Columban MUN 2023", image: "Columban23.jpg",
                 description: "Delegation performance.",
                 awards: ["Angela (GCM) – Best Delegate", "Aaditya Pandey (UNCSW) – High Commendation", "Kriti (UNGA) – Special Mention", "Atharva (UNGA) – Special Mention", "Mehr (NATO) – Special Mention", "Akshaddha (NATO) – Special Mention", "Jhanvi (NATO) – Special Mention", "Dev (NATO) – Special Mention", "Paavika (GCM) – Verbal Mention", "Rida (UNGA) – Honourable Mention", "Siya (GCM) – Honourable Mention"]
             }
         ];
 
-        const indRoot = document.getElementById('individual-root');
-        individualAwardsDatabase.forEach(a => {
-            indRoot.innerHTML += `<div class="achievement-card"><div class="achievement-badge">Winner</div><div class="student-name">${a.name}</div><div class="award-info"><strong>${a.award}</strong> | ${a.committee}</div><div class="conf-info">${a.conference}</div></div>`;
+        const eventsRoot = document.getElementById('events-root');
+        eventsDatabase.forEach((e, i) => {
+            let listHTML = '';
+            if (e.awards && e.awards.length > 0) {
+                listHTML = '<ul class="event-awards-list">';
+                e.awards.forEach(aw => listHTML += `<li>${aw}</li>`);
+                listHTML += '</ul>';
+            }
+            const card = document.createElement('div');
+            card.className = 'event-card reveal';
+            card.style.transitionDelay = (i * 0.08) + 's';
+            card.innerHTML = `
+                <div class="event-img-wrapper">
+                    <img src="${e.image}" alt="${e.title}" loading="lazy">
+                    <div class="event-title-overlay">${e.title}</div>
+                </div>
+                <div class="event-body">
+                    <div class="event-result">${e.description}</div>
+                    ${listHTML}
+                </div>`;
+            eventsRoot.appendChild(card);
         });
 
-        const eventsRoot = document.getElementById('events-root');
-        eventsDatabase.forEach(e => {
-            let list = '';
-            if(e.awards && e.awards.length > 0) {
-                list = '<ul class="award-list">';
-                e.awards.forEach(aw => list += `<li>${aw}</li>`);
-                list += '</ul>';
-            }
-            eventsRoot.innerHTML += `<div class="card"><img src="${e.image}" alt="${e.title}" class="card-img"><div class="card-body"><h3 class="card-title">${e.title}</h3><p>${e.description}</p>${list}</div></div>`;
-        });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>
+
 </html>
