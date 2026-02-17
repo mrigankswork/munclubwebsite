@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources — DPS Noida MUN Club</title>
+    <meta name="description"
+        content="MUN Rules of Procedure guide — learn formal debate, motions, points, chits, research tips, and speech-making from the DPS Noida MUN Club.">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* === PAGE HEADER — DARK CINEMATIC === */
+        .page-header {
+            padding: 160px 2rem 80px 2rem;
+            text-align: center;
+            background: var(--dark-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(201, 168, 76, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0.3;
+        }
+
+        .page-header-overline {
+            font-family: var(--font-body);
+            font-size: 0.72rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--gold);
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .page-header-overline::before,
+        .page-header-overline::after {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background: var(--gold);
+            opacity: 0.5;
+        }
+
+        .page-header h1 {
+            font-family: var(--font-editorial);
+            font-size: 3.5rem;
+            font-weight: 500;
+            color: #fff;
+            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
+        }
+
+        .page-header h1 span {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .page-header p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1.05rem;
+            font-style: italic;
+            font-family: var(--font-editorial);
+            letter-spacing: 0.5px;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        /* === RESOURCES CONTENT === */
+        .resources-body {
+            background: var(--bg-off-white);
+        }
+
+        /* Table of Contents */
+        .toc-section {
+            background: var(--dark-bg-lighter);
+            padding: 60px 2rem;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .toc-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .toc-item:hover {
+            border-color: var(--gold);
+            background: rgba(201, 168, 76, 0.06);
+            transform: translateY(-2px);
+        }
+
+        .toc-number {
+            font-family: var(--font-editorial);
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--gold);
+            opacity: 0.6;
+            min-width: 36px;
+        }
+
+        .toc-label {
+            font-size: 0.82rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        /* Content Sections */
+        .resource-section {
+            padding: 80px 2rem;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .resource-section:nth-child(odd) {
+            background: var(--bg-off-white);
+        }
+
+        .resource-section:nth-child(even) {
+            background: var(--bg-white);
+        }
+
+        .resource-section-number {
+            font-family: var(--font-editorial);
+            font-size: 5rem;
+            font-weight: 500;
+            color: var(--dps-green);
+            opacity: 0.15;
+            line-height: 1;
+            margin-bottom: 0rem;
+            position: relative;
+            z-index: 0;
+        }
+
+        .resource-section-title {
+            font-family: var(--font-editorial);
+            font-size: 2.2rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .resource-section-divider {
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--dps-green), var(--gold));
+            margin-bottom: 2rem;
+        }
+
+        .resource-section p {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+        }
+
+        .resource-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Highlight box for key procedures */
+        .procedure-box {
+            background: var(--bg-off-white);
+            border-left: 3px solid var(--gold);
+            padding: 1.5rem 1.75rem;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .resource-section:nth-child(odd) .procedure-box {
+            background: var(--bg-white);
+        }
+
+        .procedure-box-label {
+            font-family: var(--font-body);
+            font-size: 0.68rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gold-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .procedure-box p {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* Bullet list styling */
+        .resource-list {
+            list-style: none;
+            padding: 0;
+            margin: 1.25rem 0;
+        }
+
+        .resource-list li {
+            padding: 10px 0 10px 28px;
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            position: relative;
+            border-bottom: 1px solid rgba(0, 104, 55, 0.06);
+        }
+
+        .resource-list li:last-child {
+            border-bottom: none;
+        }
+
+        .resource-list li::before {
+            content: '◆';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            color: var(--gold);
+            font-size: 0.5rem;
+        }
+
+        /* Side-by-side comparison (for moderated vs unmoderated) */
+        .compare-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .compare-card {
+            padding: 1.75rem;
+            border: 1px solid var(--border-light);
+            background: var(--bg-white);
+            position: relative;
+        }
+
+        .compare-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--dps-green), var(--gold));
+        }
+
+        .compare-card-title {
+            font-family: var(--font-editorial);
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--dps-green);
+            margin-bottom: 1rem;
+        }
+
+        .compare-card li {
+            font-size: 0.92rem;
+        }
+
+        /* Key term emphasis */
+        .key-term {
+            color: var(--dps-green);
+            font-weight: 600;
+        }
+
+        .gold-term {
+            color: var(--gold-dark);
+            font-weight: 600;
+        }
+
+        /* Elements Section (numbered list for 4 elements) */
+        .elements-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .element-card {
+            padding: 1.5rem;
+            background: var(--bg-off-white);
+            border: 1px solid var(--border-light);
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            transition: var(--transition);
+        }
+
+        .resource-section:nth-child(odd) .element-card {
+            background: var(--bg-white);
+        }
+
+        .element-card:hover {
+            border-color: rgba(201, 168, 76, 0.3);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .element-number {
+            font-family: var(--font-editorial);
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--gold);
+            line-height: 1;
+            min-width: 30px;
+        }
+
+        .element-text {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            padding-top: 4px;
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 120px 1rem 50px 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .page-header p {
+                font-size: 0.9rem;
+            }
+
+            .toc-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .toc-section {
+                padding: 40px 1rem;
+            }
+
+            .resource-section {
+                padding: 50px 1.25rem;
+            }
+
+            .resource-section-number {
+                font-size: 3.5rem;
+            }
+
+            .resource-section-title {
+                font-size: 1.7rem;
+            }
+
+            .compare-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .elements-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .resource-section p {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 100px 0.75rem 40px 0.75rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .page-header-overline {
+                font-size: 0.65rem;
+            }
+
+            .resource-section {
+                padding: 40px 1rem;
+            }
+
+            .resource-section-number {
+                font-size: 2.8rem;
+                margin-bottom: -1.5rem;
+            }
+
+            .resource-section-title {
+                font-size: 1.5rem;
+            }
+
+            .procedure-box {
+                padding: 1.25rem;
+            }
+
+            .element-card {
+                padding: 1.25rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="MUN_Logo.jpeg" alt="Logo"> DPSN MUN
+            </a>
+            <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="members.html">Secretariat</a></li>
+                <li><a href="victories.html">Victories</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="resources.html" class="active">Resources</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HEADER -->
+    <div class="page-header">
+        <div class="page-header-overline">Reference Guide</div>
+        <h1>Rules of <span>Procedure</span></h1>
+        <p>Your comprehensive guide to Model United Nations — from formal debate to winning speeches</p>
+    </div>
+
+    <!-- TABLE OF CONTENTS -->
+    <div class="toc-section">
+        <div class="toc-grid">
+            <a class="toc-item" href="#formal-debate">
+                <div class="toc-number">01</div>
+                <div class="toc-label">Formal Debate (GSL)</div>
+            </a>
+            <a class="toc-item" href="#informal-debate">
+                <div class="toc-number">02</div>
+                <div class="toc-label">Informal Debate</div>
+            </a>
+            <a class="toc-item" href="#roll-call">
+                <div class="toc-number">03</div>
+                <div class="toc-label">Roll Call & Setting GSL</div>
+            </a>
+            <a class="toc-item" href="#motions">
+                <div class="toc-number">04</div>
+                <div class="toc-label">Motions & Procedures</div>
+            </a>
+            <a class="toc-item" href="#points">
+                <div class="toc-number">05</div>
+                <div class="toc-label">Parliamentary Points</div>
+            </a>
+            <a class="toc-item" href="#chits">
+                <div class="toc-number">06</div>
+                <div class="toc-label">Chits</div>
+            </a>
+            <a class="toc-item" href="#proofs">
+                <div class="toc-number">07</div>
+                <div class="toc-label">Proofs in Committee</div>
+            </a>
+            <a class="toc-item" href="#speech">
+                <div class="toc-number">08</div>
+                <div class="toc-label">Effective Speeches</div>
+            </a>
+            <a class="toc-item" href="#research">
+                <div class="toc-number">09</div>
+                <div class="toc-label">Research for MUN</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- CONTENT SECTIONS -->
+    <div class="resources-body">
+
+        <!-- 1. FORMAL DEBATE -->
+        <div class="resource-section" id="formal-debate">
+            <div class="resource-section-number reveal">01</div>
+            <h2 class="resource-section-title reveal">Formal Debate — General Speaker's List</h2>
+            <div class="resource-section-divider reveal"></div>
+
+            <p class="reveal">
+                The <span class="key-term">General Speaker's List (GSL)</span> is the main form of debate in a formal
+                session. Nations will be recognized by the Executive Board to speak. While the GSL is a general form of
+                speech, a few key points must be kept in mind:
+            </p>
+
+            <ul class="resource-list reveal">
+                <li><span class="gold-term">"General" does not mean a typical speech</span> — your address must be
+                    substantive and targeted to the agenda.</li>
+                <li><span class="gold-term">Forming a good argument is very important</span> — structure your points
+                    logically and back them with evidence.</li>
+                <li><span class="gold-term">Always ask questions</span> — engaging with other delegates demonstrates
+                    active participation and analytical thinking.</li>
+            </ul>
+
+            <p class="reveal">
+                After completing a GSL speech, if time remains, a delegate can <span class="key-term">yield</span> their
+                remaining time in one of three ways:
+            </p>
+
+            <ul class="resource-list reveal">
+                <li>Yield to <span class="gold-term">another delegate</span></li>
+                <li>Yield to <span class="gold-term">the Executive Board</span></li>
+                <li>Yield to <span class="gold-term">Points of Information</span></li>
+            </ul>
+        </div>
+
+        <!-- 2. INFORMAL DEBATE -->
+        <div class="resource-section" id="informal-debate">
+            <div class="resource-section-number reveal">02</div>
+            <h2 class="resource-section-title reveal">Informal Debate</h2>
+            <div class="resource-section-divider reveal"></div>
+
+            <p class="reveal">
+                Informal debate takes two forms — <span class="key-term">Moderated Caucuses</span> and <span
+                    class="key-term">Unmoderated Caucuses</span>. Each serves a distinct purpose in advancing committee
+                work.
+            </p>
+
+            <div class="compare-grid reveal">
+                <div class="compare-card">
+                    <div class="compare-card-title">Moderated Caucus</div>
+                    <ul class="resource-list">
+                        <li>Executive Board moderates the discussion</li>
+                        <li>Individual speaking time is required</li>
+                        <li>Delegates must speak in the order recognized by the E.B.</li>
+                        <li><span class="gold-term">Use this time to make effective, focused speeches</span></li>
+                    </ul>
+                </div>
+                <div class="compare-card">
+                    <div class="compare-card-title">Unmoderated Caucus</div>
+                    <ul class="resource-list">
+                        <li>Executive Board doesn't moderate</li>
+                        <li>Only total time is required</li>
+                        <li>Delegates are free to use time as they wish</li>
+                        <li><span class="gold-term">Use this time to lobby people to your side</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. ROLL CALL & GSL -->
+        <div class="resource-section" id="roll-call">
+            <div class="resource-section-number reveal">03</div>
+            <h2 class="resource-section-title reveal">Roll Call & Motion to Set Up GSL</h2>
+            <div class="resource-section-divider reveal"></div>
+
+            <p class="reveal">
+                At the beginning of each session, the Executive Board will conduct the <span class="key-term">Roll
+                    Call</span> to identify which States are present and which are not.
+            </p>
+
+            <p class="reveal">
+                There are two appropriate responses when your State is called:
+            </p>
+
+            <ul class="resource-list reveal">
+                <li><span class="gold-term">"Present"</span> — you retain the right to abstain on substantive
+                    votes.</li>
+                <li><span class="gold-term">"Present and Voting"</span> — you are <em>not</em> permitted to abstain on
+                    any substantive vote while the committee is in session. You must vote strictly in favour or in
+                    opposition to any motion before the committee.</li>
+            </ul>
+
+            <p class="reveal">
+                This is followed by a <span class="key-term">Motion to set up the General Speaker's List</span>, which
+                allows the committee to move into debating inside a formal session.
+            </p>
+
+            <div class="procedure-box reveal">
+                <div class="procedure-box-label">Motion to Set Speaker's Time of GSL</div>
+                <p>
+                    "The delegate of <em>[Country]</em> would like to set the individual Speaker's time of the GSL to 60
+                    seconds."
+                </p>
+                <p style="margin-top: 0.75rem; font-style: normal; font-size: 0.85rem; color: var(--text-muted);">
+                    To pass, the vote requires a <span class="gold-term">Simple Majority</span>.
+                </p>
+            </div>
+        </div>
+
+        <!-- 4. MOTIONS -->
+        <div class="resource-section" id="motions">
+            <div class="resource-section-number reveal">04</div>
+            <h2 class="resource-section-title reveal">Raising a Motion</h2>
+            <div class="resource-section-divider reveal"></div>
+
+            <p class="reveal">
+                A motion is made to <span class="key-term">suspend formal debate</span> for the purpose of an
+                Unmoderated Caucus or a Moderated Caucus. When raising a motion, the delegate should specify a certain
+                amount of time and the topic (only in case of a Moderated Caucus).
+            </p>
+
+            <div class="procedure-box reveal">
+                <div class="procedure-box-label">For an Unmoderated Caucus</div>
+                <p>
+                    "With the prior permission of the Executive Board, the delegate of <em>[Country]</em> would like to
+                    suspend formal debate and move into an Unmoderated Caucus for the total time of ten minutes."
+                </p>
+            </div>
+
+            <div class="procedure-box reveal">
+                <div class="procedure-box-label">For a Moderated Caucus</div>
+                <p>
+                    "With the prior permission of the Executive Board, the delegate of <em>[Country]</em> would like to
+                    suspend formal debate and move into a Moderated Caucus on the topic <em>[Topic]</em> with individual
+                    speaking time being 60 seconds and total time being 20 minutes."
+                </p>
+            </div>
+
+            <p class="reveal" style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+                To pass, the vote requires a <span class="gold-term">Simple Majority</span>.
+            </p>
+        </div>
+
+        <!-- 5. PARLIAMENTARY POINTS -->
+        <div class="resource-section" id="points">
+            <div class="resource-section-number reveal">05</div>
+            <h2 class="resource-section-title reveal">Parliamentary Points</h2>
+            <div class="resource-section-divider reveal"></div>
+
+            <div class="elements-grid">
+                <div class="element-card reveal">
+                    <div class="element-number">I</div>
+                    <div>
+                        <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 6px;">Point of Inquiry
+                        </div>
+                        <div class="element-text">When the floor is open, a delegate may move for a Point of Inquiry to
+                            ask the chairperson a question regarding the <span class="key-term">Rules of
+                                Procedure</span>.</div>
+                    </div>
+                </div>
+                <div class="element-card reveal">
+                    <div class="element-number">II</div>
+                    <div>
+                        <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 6px;">Point of Personal
+                            Privilege</div>
+                        <div class="element-text">A delegate may raise this point to inform the chairperson of a
+                            <span class="key-term">physical discomfort</span>, such as inability to hear another
+                            delegate's speech.
+                        </div>
+                    </div>
+                </div>
+                <div class="element-card reveal">
+                    <div class="element-number">III</div>
+                    <div>
+                        <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 6px;">Point of
+                            Information</div>
+                        <div class="element-text">After a delegate has given a speech in formal debate and yields to
+                            Points of Information, another delegate may raise a <span class="key-term">question
+                                concerning the speech</span>.</div>
+                    </div>
+                </div>
+                <div class="element-card reveal">
+                    <div class="element-number">IV</div>
+                    <div>
+                        <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 6px;">Point of Order
+                        </div>
+                        <div class="element-text">This is raised when a <span class="key-term">factual error</span> is
+                            made, either by a delegate or even by the Executive Board. The E.B. may ask the delegate to
+                            provide proof to confirm the correct fact.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. CHITS -->
+        <div class="resource-section" id="chits">
+            <div class="resource-section-number reveal">06</div>
+            <h2 class="resource-section-title reveal">Chits</h2>
+            <div class="resource-section-divider reveal"></div>
+
+            <p class="reveal">
+                Chits are written notes passed during committee sessions. They can be of three types:
+            </p>
+
+            <ul class="resource-list reveal">
+                <li><span class="gold-term">Delegate to Delegate</span> — direct communication between two
+                    delegates.</li>
+                <li><span class="gold-term">Delegate to Delegate (Via E.B.)</span> — communication that passes through
+                    the Executive Board for review.</li>
+                <li><span class="gold-term">Delegate to E.B. (Substantive Chits)</span> — chits addressed directly to
+                    the Executive Board on substantive matters.</li>
+            </ul>
+
+            <div class="procedure-box reveal">
+                <div class="procedure-box-label">Important</div>
+                <p>
+                    Use chits effectively as they can cause you to win and/or lose by very small margins. Strategic
+                    communication through chits is a critical component of MUN diplomacy.
+                </p>
+            </div>
+        </div>
+
+        <!-- 7. PROOFS -->
+        <div class="resource-section" id="proofs">
+            <div class="resource-section-number reveal">07</div>
+            <h2 class="resource-section-title reveal">Proofs in Committee</h2>
+            <div class="resource-section-divider reveal"></div>
+
+            <p class="reveal">
+                When making claims or countering arguments in committee, delegates must cite valid sources. The
+                following
+                are considered <span class="key-term">acceptable sources of proof</span>:
+            </p>
+
+            <ul class="resource-list reveal">
+                <li><span class="gold-term">Reuters</span> — a globally trusted news agency.</li>
+                <li><span class="gold-term">Government news sources</span> — official publications from national
+                    governments.</li>
+                <li><span class="gold-term">Reports from International Organizations</span> — such as the UN, WHO, IMF,
+                    World Bank, etc.</li>
+            </ul>
+
+            <div class="procedure-box reveal">
+                <div class="procedure-box-label">Note</div>
+                <p>
+                    Reports from NGOs are <strong>not</strong> considered valid sources of proof in most MUN committees.
+                </p>
+            </div>
+        </div>
+
+        <!-- 8. EFFECTIVE SPEECHES -->
+        <div class="resource-section" id="speech">
+            <div class="resource-section-number reveal">08</div>
+            <h2 class="resource-section-title reveal">How to Give an Effective Speech</h2>
+            <div class="resource-section-divider reveal"></div>
+
+            <p class="reveal">
+                A good speech has <span class="key-term">four major elements</span>. Mastering these will significantly
+                improve your committee performance:
+            </p>
+
+            <div class="elements-grid">
+                <div class="element-card reveal">
+                    <div class="element-number">1</div>
+                    <div class="element-text"><span class="gold-term">Explanation of the problem</span> — clearly
+                        define the issue at hand and its scope.</div>
+                </div>
+                <div class="element-card reveal">
+                    <div class="element-number">2</div>
+                    <div class="element-text"><span class="gold-term">A solution to counter the problem</span> —
+                        propose actionable, realistic solutions.</div>
+                </div>
+                <div class="element-card reveal">
+                    <div class="element-number">3</div>
+                    <div class="element-text"><span class="gold-term">Relevance to the agenda</span> — explain why your
+                        speech matters in the context of the committee's agenda.</div>
+                </div>
+                <div class="element-card reveal">
+                    <div class="element-number">4</div>
+                    <div class="element-text"><span class="gold-term">Questions and analysis</span> — critically engage
+                        with other delegates' speeches and arguments.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 9. RESEARCH -->
+        <div class="resource-section" id="research">
+            <div class="resource-section-number reveal">09</div>
+            <h2 class="resource-section-title reveal">How to Research for an MUN</h2>
+            <div class="resource-section-divider reveal"></div>
+
+            <p class="reveal">
+                Effective research also requires <span class="key-term">four major elements</span>. Strong preparation
+                is the foundation of every successful MUN experience:
+            </p>
+
+            <div class="elements-grid">
+                <div class="element-card reveal">
+                    <div class="element-number">1</div>
+                    <div class="element-text"><span class="gold-term">Understand why the problem is happening</span> —
+                        dig deep into root causes, not just symptoms.</div>
+                </div>
+                <div class="element-card reveal">
+                    <div class="element-number">2</div>
+                    <div class="element-text"><span class="gold-term">Develop new, innovative solutions</span> — go
+                        beyond existing proposals and craft original approaches.</div>
+                </div>
+                <div class="element-card reveal">
+                    <div class="element-number">3</div>
+                    <div class="element-text"><span class="gold-term">Relevance to the agenda</span> — ensure your
+                        solutions directly address the committee's focus areas.</div>
+                </div>
+                <div class="element-card reveal">
+                    <div class="element-number">4</div>
+                    <div class="element-text"><span class="gold-term">Form effective counter-arguments</span> — prepare
+                        responses to positions other delegates are likely to take.</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">DPSN MUN Club</div>
+            <div class="footer-tagline">May the Force be with Us</div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="members.html">Secretariat</a>
+                <a href="victories.html">Victories</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="resources.html">Resources</a>
+            </div>
+            <div class="footer-copy">&copy; 2025 DPS Noida MUN Club. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        // Scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+
+</html>
